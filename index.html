@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sofi Presidente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple: #a855f7;
+      --pink: #ec4899;
+      --blue: #3b82f6;
+      --yellow: #fbbf24;
+      --dark: #1e1b4b;
+      --light: #faf5ff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 { font-family: 'Bangers', cursive; letter-spacing: 2px; }
+
+    /* ============ NAV ============ */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      padding: 1rem 2rem;
+      background: rgba(30, 27, 75, 0.8);
+      backdrop-filter: blur(10px);
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background 0.3s;
+    }
+    nav .logo { font-family: 'Bangers', cursive; font-size: 1.5rem; color: var(--yellow); }
+    nav .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    nav .nav-links a {
+      color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600;
+      transition: color 0.3s;
+    }
+    nav .nav-links a:hover { color: var(--yellow); }
+
+    /* ============ HERO ============ */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      background: linear-gradient(-45deg, #1e1b4b, #581c87, #831843, #1e3a5f);
+      background-size: 400% 400%;
+      animation: gradientShift 10s ease infinite;
+      position: relative;
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    #hero .title-sofi {
+      font-size: clamp(5rem, 15vw, 12rem);
+      line-height: 1;
+      background: linear-gradient(135deg, var(--yellow), var(--pink), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: heroIn 1s ease-out;
+      text-shadow: none;
+    }
+
+    #hero .title-pres {
+      font-size: clamp(2rem, 6vw, 5rem);
+      color: white;
+      margin-top: -0.5rem;
+      animation: heroIn 1s ease-out 0.3s both;
+    }
+
+    #hero .subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      margin-top: 1rem;
+      opacity: 0.9;
+      animation: heroIn 1s ease-out 0.6s both;
+    }
+
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(40px) scale(0.9); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .scroll-indicator {
+      position: absolute; bottom: 2rem;
+      animation: bounce 2s infinite;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .particle {
+      position: absolute;
+      font-size: 2rem;
+      pointer-events: none;
+      animation: floatUp linear infinite;
+      opacity: 0.7;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.7; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ============ SECTIONS ============ */
+    section {
+      padding: 6rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      text-align: center;
+      margin-bottom: 3rem;
+      background: linear-gradient(135deg, var(--yellow), var(--pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-80px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(80px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ============ ABOUT ============ */
+    #about {
+      background: linear-gradient(180deg, var(--dark) 0%, #2e1065 100%);
+      max-width: 100%;
+      padding: 6rem 2rem;
+    }
+    #about .content {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .avatar-container {
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem;
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.5);
+      flex-shrink: 0;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.3); }
+      50% { box-shadow: 0 0 60px rgba(168, 85, 247, 0.6); }
+    }
+    .about-text {
+      flex: 1;
+      min-width: 280px;
+    }
+    .about-text p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      opacity: 0.9;
+    }
+    .about-text .highlight {
+      color: var(--yellow);
+      font-weight: 700;
+    }
+
+    /* ============ QUALITIES ============ */
+    #qualities {
+      max-width: 100%;
+      padding: 6rem 2rem;
+      background: var(--dark);
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .quality-card {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .quality-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
+    }
+    .quality-card .icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .quality-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--yellow);
+    }
+    .quality-card p {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+    .card-delay-1 { transition-delay: 0.1s; }
+    .card-delay-2 { transition-delay: 0.2s; }
+    .card-delay-3 { transition-delay: 0.3s; }
+    .card-delay-4 { transition-delay: 0.4s; }
+    .card-delay-5 { transition-delay: 0.5s; }
+    .card-delay-6 { transition-delay: 0.6s; }
+
+    /* ============ PROMISE GENERATOR ============ */
+    #promises {
+      max-width: 100%;
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg, var(--dark) 0%, #1a0533 100%);
+      text-align: center;
+    }
+    .promise-machine {
+      max-width: 600px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #2d1b69, #4a1d6e);
+      border-radius: 30px;
+      padding: 3rem 2rem;
+      box-shadow: 0 0 60px rgba(168, 85, 247, 0.2);
+      border: 2px solid rgba(168, 85, 247, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .promise-machine::before {
+      content: '';
+      position: absolute;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
+      background: linear-gradient(45deg, var(--purple), var(--pink), var(--blue), var(--yellow));
+      border-radius: 30px;
+      z-index: -1;
+      background-size: 300% 300%;
+      animation: borderGlow 4s ease infinite;
+    }
+    @keyframes borderGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .machine-label {
+      font-family: 'Bangers', cursive;
+      font-size: 1.2rem;
+      color: var(--yellow);
+      margin-bottom: 1.5rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .promise-display {
+      background: rgba(0,0,0,0.3);
+      border-radius: 15px;
+      padding: 2rem;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .promise-text {
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1.5;
+      transition: filter 0.3s, transform 0.3s;
+    }
+    .promise-text.cycling {
+      filter: blur(3px);
+    }
+    .promise-btn {
+      font-family: 'Bangers', cursive;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      padding: 1rem 3rem;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--yellow), #f59e0b);
+      color: var(--dark);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 5px 20px rgba(251, 191, 36, 0.4);
+    }
+    .promise-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 30px rgba(251, 191, 36, 0.6);
+    }
+    .promise-btn:active { transform: scale(0.95); }
+    .promise-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .promise-counter {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    /* ============ GAME ============ */
+    #game {
+      max-width: 100%;
+      padding: 6rem 2rem;
+      background: var(--dark);
+      text-align: center;
+    }
+    .game-container {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .game-instructions {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    .game-hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      padding: 0 0.5rem;
+      font-weight: 600;
+    }
+    .game-hud .lives { font-size: 1.3rem; }
+    .game-hud .score { color: var(--yellow); font-size: 1.1rem; }
+    canvas#gameCanvas {
+      display: block;
+      margin: 0 auto;
+      border-radius: 15px;
+      border: 2px solid rgba(168, 85, 247, 0.4);
+      background: #0f0a2a;
+      max-width: 100%;
+      cursor: none;
+    }
+    .game-overlay {
+      position: relative;
+    }
+    .game-start-overlay, .game-over-overlay {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 100%; max-width: 480px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 10, 42, 0.85);
+      border-radius: 15px;
+      z-index: 10;
+      gap: 1rem;
+    }
+    .game-start-overlay h3, .game-over-overlay h3 {
+      font-size: 2.5rem;
+      color: var(--yellow);
+    }
+    .game-over-overlay .final-score {
+      font-size: 1.5rem;
+      color: var(--pink);
+    }
+    .game-btn {
+      font-family: 'Bangers', cursive;
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      padding: 0.8rem 2.5rem;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .game-btn:hover { transform: scale(1.08); }
+
+    /* ============ CTA ============ */
+    #cta {
+      max-width: 100%;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg, var(--dark), #1a0533);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-title {
+      font-size: clamp(3rem, 10vw, 7rem);
+      background: linear-gradient(135deg, var(--yellow), var(--pink), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+    .cta-sub {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-bottom: 2.5rem;
+    }
+    .vote-btn {
+      font-family: 'Bangers', cursive;
+      font-size: 2.5rem;
+      letter-spacing: 3px;
+      padding: 1.2rem 4rem;
+      border: none;
+      border-radius: 60px;
+      background: linear-gradient(135deg, var(--yellow), #f59e0b, var(--pink));
+      background-size: 200% 200%;
+      color: var(--dark);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 40px rgba(251, 191, 36, 0.4);
+      animation: btnGlow 3s ease infinite;
+    }
+    @keyframes btnGlow {
+      0%, 100% { background-position: 0% 50%; box-shadow: 0 8px 40px rgba(251, 191, 36, 0.4); }
+      50% { background-position: 100% 50%; box-shadow: 0 8px 60px rgba(236, 72, 153, 0.6); }
+    }
+    .vote-btn:hover { transform: scale(1.1); }
+    .vote-btn:active { transform: scale(0.95); }
+    .vote-counter {
+      margin-top: 2rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+    .vote-counter span {
+      color: var(--yellow);
+      font-family: 'Bangers', cursive;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+
+    /* Confetti */
+    .confetti-piece {
+      position: fixed;
+      width: 10px; height: 10px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+    }
+
+    /* ============ FOOTER ============ */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      opacity: 0.5;
+      font-size: 0.85rem;
+      background: #0f0a1a;
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 768px) {
+      nav .nav-links { display: none; }
+      #about .content { flex-direction: column; text-align: center; }
+      .avatar-container { width: 150px; height: 150px; font-size: 4.5rem; }
+      .cards-grid { grid-template-columns: 1fr 1fr; }
+      .promise-text { font-size: 1.15rem; }
+      .promise-btn { font-size: 1.4rem; padding: 0.8rem 2rem; }
+      .vote-btn { font-size: 1.8rem; padding: 1rem 2.5rem; }
+    }
+    @media (max-width: 480px) {
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======== NAV ======== -->
+  <nav>
+    <div class="logo">SOFI 2026</div>
+    <ul class="nav-links">
+      <li><a href="#about">Sofi</a></li>
+      <li><a href="#qualities">Por que</a></li>
+      <li><a href="#promises">Promesas</a></li>
+      <li><a href="#game">Juego</a></li>
+      <li><a href="#cta">Votar</a></li>
+    </ul>
+  </nav>
+
+  <!-- ======== HERO ======== -->
+  <section id="hero">
+    <div id="particles"></div>
+    <h1 class="title-sofi">SOFI</h1>
+    <h1 class="title-pres">PRESIDENTE</h1>
+    <p class="subtitle">La unica candidata que no te va a aburrir</p>
+    <a href="#about" class="scroll-indicator" aria-label="Scroll">&#11167;</a>
+  </section>
+
+  <!-- ======== ABOUT ======== -->
+  <section id="about">
+    <h2 class="section-title reveal">Quien es Sofi?</h2>
+    <div class="content">
+      <div class="avatar-container reveal-left">&#129333;</div>
+      <div class="about-text reveal-right">
+        <p>
+          Companiera, amiga, la que <span class="highlight">siempre tiene un plan</span>
+          (y un snack en la mochila). Sofi no es una candidata mas.
+          Es <span class="highlight">LA</span> candidata.
+        </p>
+        <br>
+        <p>
+          Mientras otros prometen "mejorar la convivencia", Sofi va al grano:
+          sabe lo que <span class="highlight">de verdad</span> necesitamos
+          y no tiene miedo de decirlo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== QUALITIES ======== -->
+  <section id="qualities">
+    <h2 class="section-title reveal">Por que Sofi?</h2>
+    <div class="cards-grid">
+      <div class="quality-card reveal card-delay-1">
+        <div class="icon">&#128170;</div>
+        <h3>Determinacion</h3>
+        <p>Cuando Sofi dice que va a hacer algo, lo hace. No hay vuelta atras.</p>
+      </div>
+      <div class="quality-card reveal card-delay-2">
+        <div class="icon">&#129504;</div>
+        <h3>Ideas</h3>
+        <p>Siempre tiene propuestas nuevas. Y no, no son las mismas de todos los anios.</p>
+      </div>
+      <div class="quality-card reveal card-delay-3">
+        <div class="icon">&#128588;</div>
+        <h3>Escucha</h3>
+        <p>De verdad escucha. No de esas que asienten y despues hacen lo que quieren.</p>
+      </div>
+      <div class="quality-card reveal card-delay-4">
+        <div class="icon">&#128526;</div>
+        <h3>Onda</h3>
+        <p>Porque un presidente sin onda es como un recreo sin kiosco. Inaceptable.</p>
+      </div>
+      <div class="quality-card reveal card-delay-5">
+        <div class="icon">&#129309;</div>
+        <h3>Confianza</h3>
+        <p>Se banca los problemas y los resuelve. No los esconde debajo de la alfombra.</p>
+      </div>
+      <div class="quality-card reveal card-delay-6">
+        <div class="icon">&#127775;</div>
+        <h3>Creatividad</h3>
+        <p>Siempre encuentra la forma de hacer las cosas distintas. Chau aburrimiento.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== PROMISE GENERATOR ======== -->
+  <section id="promises">
+    <h2 class="section-title reveal">El Generador de Promesas</h2>
+    <p class="reveal" style="opacity:0.7; margin-bottom:2rem; max-width:600px; margin-left:auto; margin-right:auto;">
+      Cada promesa esta cientificamente calculada* para mejorar tu vida escolar.
+      <br><small>*no realmente</small>
+    </p>
+    <div class="promise-machine reveal">
+      <div class="machine-label">&#9889; Maquina de Promesas &#9889;</div>
+      <div class="promise-display">
+        <div class="promise-text" id="promiseText">Toca el boton y descubri que va a hacer Sofi por vos</div>
+      </div>
+      <button class="promise-btn" id="promiseBtn" onclick="generatePromise()">NUEVA PROMESA</button>
+      <div class="promise-counter">Promesas generadas: <strong id="promiseCount">0</strong></div>
+    </div>
+  </section>
+
+  <!-- ======== GAME ======== -->
+  <section id="game">
+    <h2 class="section-title reveal">Ayuda a Sofi!</h2>
+    <div class="game-container reveal">
+      <p class="game-instructions">
+        Movi a Sofi para juntar votos &#11088; y esquivar la tarea &#128218;
+        <br>Usa las <strong>flechas</strong> del teclado o <strong>arrastra</strong> con el dedo.
+      </p>
+      <div class="game-hud">
+        <div class="lives" id="livesDisplay">&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;</div>
+        <div class="score">Puntos: <span id="scoreDisplay">0</span></div>
+      </div>
+      <div class="game-overlay">
+        <canvas id="gameCanvas" width="480" height="600"></canvas>
+        <div class="game-start-overlay" id="gameStartOverlay">
+          <h3>Junta Votos!</h3>
+          <p>&#11088; = +10 &nbsp; &#128499;&#65039; = +25 &nbsp; &#128218; = ouch</p>
+          <button class="game-btn" onclick="startGame()">JUGAR</button>
+        </div>
+        <div class="game-over-overlay" id="gameOverOverlay" style="display:none;">
+          <h3>Game Over!</h3>
+          <div class="final-score" id="finalScore">Puntos: 0</div>
+          <div id="highScoreMsg" style="color:var(--yellow);font-weight:700;"></div>
+          <button class="game-btn" onclick="startGame()">OTRA VEZ</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== CTA ======== -->
+  <section id="cta">
+    <h2 class="cta-title reveal">Vota a Sofi!</h2>
+    <p class="cta-sub reveal">Dale click y demostra tu apoyo</p>
+    <button class="vote-btn reveal" id="voteBtn" onclick="handleVote()">VOTAR</button>
+    <div class="vote-counter reveal">
+      Votos: <span id="voteCount">0</span>
+    </div>
+  </section>
+
+  <!-- ======== FOOTER ======== -->
+  <footer>
+    Sofi Presidente 2026 &mdash; Hecho con ganas y cero presupuesto
+  </footer>
+
+<script>
+/* ======================================================
+   SCROLL REVEAL
+   ====================================================== */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+/* ======================================================
+   HERO PARTICLES
+   ====================================================== */
+const emojis = ['\u2B50', '\u2728', '\u2764\uFE0F', '\uD83D\uDDF3\uFE0F', '\uD83C\uDF89', '\uD83C\uDF1F', '\uD83D\uDE80', '\uD83C\uDF08'];
+const particleContainer = document.getElementById('particles');
+
+function spawnParticle() {
+  const p = document.createElement('span');
+  p.classList.add('particle');
+  p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  p.style.left = Math.random() * 100 + '%';
+  p.style.fontSize = (1.2 + Math.random() * 1.5) + 'rem';
+  const duration = 6 + Math.random() * 6;
+  p.style.animationDuration = duration + 's';
+  p.style.animationDelay = Math.random() * 2 + 's';
+  particleContainer.appendChild(p);
+  setTimeout(() => p.remove(), (duration + 2) * 1000);
+}
+
+setInterval(spawnParticle, 400);
+for (let i = 0; i < 12; i++) setTimeout(spawnParticle, i * 200);
+
+/* ======================================================
+   PROMISE GENERATOR
+   ====================================================== */
+const promises = [
+  "\uD83C\uDF66 Helado gratis los viernes",
+  "\uD83D\uDCF1 WiFi libre y que ande BIEN",
+  "\u23F0 5 minutos mas de recreo (minimo)",
+  "\uD83C\uDFB5 Musica en los recreos",
+  "\u274C Prohibido tomar lecciones orales los lunes",
+  "\uD83D\uDE34 Dia de pijama una vez al mes",
+  "\uD83C\uDF55 Que el kiosco tenga precios de este siglo",
+  "\uD83C\uDFAC Cine-debate: elegimos nosotros la peli",
+  "\u2744\uFE0F Aire acondicionado que funcione DE VERDAD",
+  "\uD83D\uDCDA Que no manden tarea para el finde largo",
+  "\uD83C\uDFC6 Torneo de futbol/voley en los recreos",
+  "\uD83C\uDFA8 Mas actividades artisticas y menos aburrimiento",
+  "\uD83E\uDD73 Fiesta de fin de trimestre OBLIGATORIA",
+  "\uD83E\uDD14 Buzon anonimo de sugerencias que se lea de verdad",
+  "\uD83D\uDCDD Que los profes avisen las pruebas con MAS tiempo",
+  "\uD83C\uDF33 Bancos en el patio para sentarse como humanos",
+  "\uD83D\uDE0E Casual Friday: un dia sin uniforme al mes",
+  "\uD83C\uDFAE Torneo de videojuegos intercolegial",
+  "\uD83E\uDDD1\u200D\uD83C\uDF73 Taller de cocina como actividad extra",
+  "\uD83D\uDCA1 Que las ideas de los estudiantes se escuchen POSTA"
+];
+
+let promiseCount = 0;
+let isGenerating = false;
+
+function generatePromise() {
+  if (isGenerating) return;
+  isGenerating = true;
+
+  const btn = document.getElementById('promiseBtn');
+  const textEl = document.getElementById('promiseText');
+  btn.disabled = true;
+  textEl.classList.add('cycling');
+
+  let cycles = 0;
+  const totalCycles = 15 + Math.floor(Math.random() * 10);
+  let delay = 50;
+
+  function cycle() {
+    textEl.textContent = promises[Math.floor(Math.random() * promises.length)];
+    cycles++;
+
+    // Reduce blur gradually as it slows down
+    const progress = cycles / totalCycles;
+    const blur = Math.max(0, 3 * (1 - progress));
+    textEl.style.filter = 'blur(' + blur + 'px)';
+
+    if (cycles < totalCycles) {
+      delay += cycles * 3;
+      setTimeout(cycle, delay);
+    } else {
+      textEl.classList.remove('cycling');
+      textEl.style.filter = 'blur(0)';
+      const final = promises[Math.floor(Math.random() * promises.length)];
+      textEl.textContent = final;
+      textEl.style.transform = 'scale(1.1)';
+      setTimeout(() => textEl.style.transform = 'scale(1)', 300);
+      promiseCount++;
+      document.getElementById('promiseCount').textContent = promiseCount;
+      isGenerating = false;
+      btn.disabled = false;
+    }
+  }
+
+  cycle();
+}
+
+/* ======================================================
+   MINI GAME
+   ====================================================== */
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+let gameState = 'IDLE';
+let score = 0;
+let lives = 3;
+let highScore = parseInt(localStorage.getItem('sofi_highscore') || '0');
+let items = [];
+let player = { x: 240, y: 550, width: 50, height: 50 };
+let spawnTimer = 0;
+let difficulty = 1;
+let animFrameId;
+let keys = {};
+let touchX = null;
+let gameStartTime = 0;
+
+const ITEM_TYPES = [
+  { emoji: '\u2B50', points: 10, speed: 3, size: 48, weight: 5, glow: 'rgba(251,191,36,0.7)' },
+  { emoji: '\uD83D\uDDF3\uFE0F', points: 25, speed: 2.5, size: 54, weight: 2, glow: 'rgba(168,85,247,0.7)' },
+  { emoji: '\uD83D\uDCDA', points: -1, speed: 3.5, size: 48, weight: 3, glow: 'rgba(239,68,68,0.6)' },
+];
+
+function weightedRandom() {
+  const totalWeight = ITEM_TYPES.reduce((s, t) => s + t.weight, 0);
+  let r = Math.random() * totalWeight;
+  for (const type of ITEM_TYPES) {
+    r -= type.weight;
+    if (r <= 0) return type;
+  }
+  return ITEM_TYPES[0];
+}
+
+function startGame() {
+  score = 0;
+  lives = 3;
+  items = [];
+  difficulty = 1;
+  spawnTimer = 0;
+  player.x = canvas.width / 2;
+  gameStartTime = performance.now();
+  gameState = 'PLAYING';
+  document.getElementById('gameStartOverlay').style.display = 'none';
+  document.getElementById('gameOverOverlay').style.display = 'none';
+  updateHUD();
+  if (animFrameId) cancelAnimationFrame(animFrameId);
+  gameLoop();
+}
+
+function updateHUD() {
+  document.getElementById('scoreDisplay').textContent = score;
+  let heartsStr = '';
+  for (let i = 0; i < lives; i++) heartsStr += '\u2764\uFE0F ';
+  for (let i = lives; i < 3; i++) heartsStr += '\uD83D\uDDA4 ';
+  document.getElementById('livesDisplay').textContent = heartsStr;
+}
+
+function spawnItem() {
+  const type = weightedRandom();
+  items.push({
+    x: Math.random() * (canvas.width - 40) + 20,
+    y: -30,
+    ...type,
+    speedMult: 1 + (difficulty - 1) * 0.15,
+  });
+}
+
+function gameLoop() {
+  if (gameState !== 'PLAYING') return;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Background stars
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  for (let i = 0; i < 50; i++) {
+    const sx = (i * 97) % canvas.width;
+    const sy = (i * 131 + performance.now() * 0.01 * ((i % 3) + 1)) % canvas.height;
+    const r = 1 + (i % 3) * 0.5;
+    ctx.beginPath();
+    ctx.arc(sx, sy, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Player movement
+  const speed = 7;
+  if (keys['ArrowLeft'] || keys['a']) player.x -= speed;
+  if (keys['ArrowRight'] || keys['d']) player.x += speed;
+  if (touchX !== null) {
+    const diff = touchX - player.x;
+    player.x += diff * 0.2;
+  }
+  player.x = Math.max(25, Math.min(canvas.width - 25, player.x));
+
+  // Draw player background circle + emoji
+  ctx.fillStyle = 'rgba(168,85,247,0.35)';
+  ctx.beginPath();
+  ctx.arc(player.x, player.y - 18, 32, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.font = '55px serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('\uD83E\uDDD1', player.x, player.y - 15);
+  ctx.textBaseline = 'alphabetic';
+
+  // Spawn items
+  spawnTimer++;
+  const spawnRate = Math.max(20, 50 - difficulty * 3);
+  if (spawnTimer >= spawnRate) {
+    spawnItem();
+    spawnTimer = 0;
+  }
+
+  // Update & draw items
+  for (let i = items.length - 1; i >= 0; i--) {
+    const item = items[i];
+    item.y += item.speed * item.speedMult;
+
+    // Draw solid circle behind item + emoji
+    ctx.fillStyle = item.glow;
+    ctx.beginPath();
+    ctx.arc(item.x, item.y - item.size * 0.3, item.size * 0.55, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.font = item.size + 'px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(item.emoji, item.x, item.y - item.size * 0.25);
+    ctx.textBaseline = 'alphabetic';
+
+    // Collision check
+    const dx = item.x - player.x;
+    const dy = item.y - player.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist < 45) {
+      if (item.points > 0) {
+        score += item.points;
+        // Small flash
+        ctx.fillStyle = 'rgba(251,191,36,0.3)';
+        ctx.beginPath();
+        ctx.arc(item.x, item.y, 30, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        lives--;
+        ctx.fillStyle = 'rgba(239,68,68,0.4)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+      items.splice(i, 1);
+      updateHUD();
+
+      if (lives <= 0) {
+        gameOver();
+        return;
+      }
+      continue;
+    }
+
+    // Remove off-screen items
+    if (item.y > canvas.height + 40) {
+      items.splice(i, 1);
+    }
+  }
+
+  // Increase difficulty over time (every 5 seconds gets faster)
+  const elapsed = (performance.now() - gameStartTime) / 1000;
+  difficulty = 1 + elapsed * 0.08;
+
+  animFrameId = requestAnimationFrame(gameLoop);
+}
+
+function gameOver() {
+  gameState = 'OVER';
+  const overlay = document.getElementById('gameOverOverlay');
+  const msg = document.getElementById('highScoreMsg');
+  document.getElementById('finalScore').textContent = 'Puntos: ' + score;
+
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem('sofi_highscore', highScore);
+    msg.textContent = 'NUEVO RECORD! \uD83C\uDFC6';
+  } else {
+    msg.textContent = 'Record: ' + highScore;
+  }
+  overlay.style.display = 'flex';
+}
+
+// Keyboard
+document.addEventListener('keydown', e => keys[e.key] = true);
+document.addEventListener('keyup', e => keys[e.key] = false);
+
+// Touch
+canvas.addEventListener('touchstart', e => {
+  e.preventDefault();
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  touchX = (e.touches[0].clientX - rect.left) * scaleX;
+  if (gameState === 'IDLE') startGame();
+}, { passive: false });
+canvas.addEventListener('touchmove', e => {
+  e.preventDefault();
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  touchX = (e.touches[0].clientX - rect.left) * scaleX;
+}, { passive: false });
+canvas.addEventListener('touchend', () => touchX = null);
+
+// Mouse (desktop)
+canvas.addEventListener('mousemove', e => {
+  if (gameState !== 'PLAYING') return;
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  player.x = (e.clientX - rect.left) * scaleX;
+});
+
+/* ======================================================
+   VOTE BUTTON + CONFETTI
+   ====================================================== */
+let voteCount = parseInt(localStorage.getItem('sofi_votes') || '0');
+document.getElementById('voteCount').textContent = voteCount;
+
+function handleVote() {
+  voteCount++;
+  localStorage.setItem('sofi_votes', voteCount);
+  document.getElementById('voteCount').textContent = voteCount;
+  launchConfetti();
+}
+
+function launchConfetti() {
+  const colors = ['#a855f7', '#ec4899', '#3b82f6', '#fbbf24', '#22c55e', '#ef4444', '#ffffff'];
+  for (let i = 0; i < 80; i++) {
+    const conf = document.createElement('div');
+    conf.classList.add('confetti-piece');
+    conf.style.left = Math.random() * 100 + 'vw';
+    conf.style.top = '-10px';
+    conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+    conf.style.width = (6 + Math.random() * 8) + 'px';
+    conf.style.height = (6 + Math.random() * 8) + 'px';
+    conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    const duration = 1.5 + Math.random() * 2;
+    conf.style.animationDuration = duration + 's';
+    conf.style.animationDelay = Math.random() * 0.5 + 's';
+    document.body.appendChild(conf);
+    setTimeout(() => conf.remove(), (duration + 1) * 1000);
+  }
+}
+</script>
+
+</body>
+</html>
