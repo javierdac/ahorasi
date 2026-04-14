@@ -430,6 +430,116 @@
     }
     .game-btn:hover { transform: scale(1.08); }
 
+    /* ============ WHACK-A-MOLE ============ */
+    #whack {
+      max-width: 100%;
+      padding: 6rem 2rem;
+      background: linear-gradient(180deg, #1a0533, var(--dark));
+      text-align: center;
+    }
+    .whack-container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .whack-instructions {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .whack-hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding: 0 0.5rem;
+      font-weight: 600;
+    }
+    .whack-hud .whack-timer { color: var(--pink); font-size: 1.1rem; }
+    .whack-hud .whack-score { color: var(--yellow); font-size: 1.1rem; }
+    .whack-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .mole-hole {
+      aspect-ratio: 1;
+      background: rgba(168, 85, 247, 0.1);
+      border: 2px solid rgba(168, 85, 247, 0.25);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s, border-color 0.15s;
+      user-select: none;
+      -webkit-user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+    .mole-hole:active { transform: scale(0.95); }
+    .mole-hole.active-problem {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: rgba(239, 68, 68, 0.6);
+      animation: moleShake 0.3s ease;
+    }
+    .mole-hole.active-good {
+      background: rgba(251, 191, 36, 0.2);
+      border-color: rgba(251, 191, 36, 0.5);
+    }
+    .mole-hole.hit-success {
+      background: rgba(34, 197, 94, 0.35);
+      border-color: rgba(34, 197, 94, 0.7);
+    }
+    .mole-hole.hit-fail {
+      background: rgba(239, 68, 68, 0.5);
+      border-color: rgba(239, 68, 68, 0.8);
+    }
+    @keyframes moleShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+    .mole-label {
+      position: absolute;
+      bottom: 6px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.2s;
+      color: white;
+      text-align: center;
+      line-height: 1.2;
+      padding: 0 4px;
+    }
+    .mole-hole.active-problem .mole-label,
+    .mole-hole.active-good .mole-label {
+      opacity: 1;
+    }
+    .whack-start, .whack-end {
+      text-align: center;
+    }
+    .whack-end { display: none; }
+    .whack-end .whack-final {
+      font-size: 1.5rem;
+      color: var(--pink);
+      margin-bottom: 0.5rem;
+    }
+    .whack-end .whack-high {
+      color: var(--yellow);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .whack-message {
+      font-size: 1rem;
+      margin-top: 1rem;
+      min-height: 1.5rem;
+      font-weight: 600;
+      transition: opacity 0.3s;
+    }
+
     /* ============ CTA ============ */
     #cta {
       max-width: 100%;
@@ -534,7 +644,7 @@
     <ul class="nav-links">
       <li><a href="#about">El Partido</a></li>
       <li><a href="#qualities">Por que</a></li>
-      <li><a href="#promises">Promesas</a></li>
+      <li><a href="#promises">Propuestas</a></li>
       <li><a href="#game">Juego</a></li>
       <li><a href="#cta">Votar</a></li>
     </ul>
@@ -609,18 +719,17 @@
 
   <!-- ======== PROMISE GENERATOR ======== -->
   <section id="promises">
-    <h2 class="section-title reveal">El Generador de Promesas</h2>
+    <h2 class="section-title reveal">Nuestras Propuestas</h2>
     <p class="reveal" style="opacity:0.7; margin-bottom:2rem; max-width:600px; margin-left:auto; margin-right:auto;">
-      Cada promesa esta cientificamente calculada* para mejorar tu vida escolar.
-      <br><small>*no realmente</small>
+      Estas son las cosas que vamos a hacer. En serio.
     </p>
     <div class="promise-machine reveal">
-      <div class="machine-label">&#9889; Maquina de Promesas &#9889;</div>
+      <div class="machine-label">&#9889; Propuestas de AHORA SI &#9889;</div>
       <div class="promise-display">
-        <div class="promise-text" id="promiseText">Toca el boton y descubri que va a hacer AHORA SI por vos</div>
+        <div class="promise-text" id="promiseText">Toca el boton y descubri que vamos a hacer por vos</div>
       </div>
-      <button class="promise-btn" id="promiseBtn" onclick="generatePromise()">NUEVA PROMESA</button>
-      <div class="promise-counter">Promesas generadas: <strong id="promiseCount">0</strong></div>
+      <button class="promise-btn" id="promiseBtn" onclick="generatePromise()">VER PROPUESTA</button>
+      <div class="promise-counter">Propuestas vistas: <strong id="promiseCount">0</strong></div>
     </div>
   </section>
 
@@ -653,6 +762,41 @@
     </div>
   </section>
 
+  <!-- ======== WHACK-A-MOLE ======== -->
+  <section id="whack">
+    <h2 class="section-title reveal">Elimina los Problemas!</h2>
+    <div class="whack-container reveal">
+      <p class="whack-instructions">
+        Toca los <strong>problemas</strong> del cole para eliminarlos con las soluciones de AHORA SI.
+        <br>Pero cuidado: no toques las cosas buenas!
+      </p>
+      <div class="whack-hud">
+        <div class="whack-timer">Tiempo: <span id="whackTimer">20</span>s</div>
+        <div class="whack-score">Puntos: <span id="whackScore">0</span></div>
+      </div>
+      <div class="whack-grid" id="whackGrid">
+        <div class="mole-hole" data-idx="0"><span class="mole-label"></span></div>
+        <div class="mole-hole" data-idx="1"><span class="mole-label"></span></div>
+        <div class="mole-hole" data-idx="2"><span class="mole-label"></span></div>
+        <div class="mole-hole" data-idx="3"><span class="mole-label"></span></div>
+        <div class="mole-hole" data-idx="4"><span class="mole-label"></span></div>
+        <div class="mole-hole" data-idx="5"><span class="mole-label"></span></div>
+        <div class="mole-hole" data-idx="6"><span class="mole-label"></span></div>
+        <div class="mole-hole" data-idx="7"><span class="mole-label"></span></div>
+        <div class="mole-hole" data-idx="8"><span class="mole-label"></span></div>
+      </div>
+      <div class="whack-start" id="whackStart">
+        <button class="game-btn" onclick="startWhack()">JUGAR</button>
+      </div>
+      <div class="whack-end" id="whackEnd">
+        <div class="whack-final" id="whackFinal">Puntos: 0</div>
+        <div class="whack-high" id="whackHigh"></div>
+        <button class="game-btn" onclick="startWhack()">OTRA VEZ</button>
+      </div>
+      <div class="whack-message" id="whackMessage"></div>
+    </div>
+  </section>
+
   <!-- ======== CTA ======== -->
   <section id="cta">
     <h2 class="cta-title reveal">Vota AHORA SI!</h2>
@@ -661,10 +805,13 @@
     <div class="vote-counter reveal">
       Votos: <span id="voteCount">0</span>
     </div>
+    <a href="https://www.instagram.com/ahorasi.marianista?igsh=N2p2aG41Ynh6anVy" target="_blank" rel="noopener" class="reveal" style="margin-top:2rem;display:inline-block;color:var(--yellow);text-decoration:none;font-family:'Bangers',cursive;font-size:1.5rem;letter-spacing:1px;">&#128247; @ahorasi.marianista</a>
   </section>
 
   <!-- ======== FOOTER ======== -->
   <footer>
+    <a href="https://www.instagram.com/ahorasi.marianista?igsh=N2p2aG41Ynh6anVy" target="_blank" rel="noopener" style="color:var(--yellow);text-decoration:none;font-size:1.5rem;display:inline-block;margin-bottom:0.5rem;">&#128247; Seguinos en Instagram</a>
+    <br>
     AHORA SI &mdash; Hecho con ganas y cero presupuesto
   </footer>
 
@@ -708,26 +855,14 @@ for (let i = 0; i < 12; i++) setTimeout(spawnParticle, i * 200);
    PROMISE GENERATOR
    ====================================================== */
 const promises = [
-  "\uD83C\uDF66 Helado gratis los viernes",
-  "\uD83D\uDCF1 WiFi libre y que ande BIEN",
-  "\u23F0 5 minutos mas de recreo (minimo)",
-  "\uD83C\uDFB5 Musica en los recreos",
-  "\u274C Prohibido tomar lecciones orales los lunes",
-  "\uD83D\uDE34 Dia de pijama una vez al mes",
-  "\uD83C\uDF55 Que el kiosco tenga precios de este siglo",
-  "\uD83C\uDFAC Cine-debate: elegimos nosotros la peli",
-  "\u2744\uFE0F Aire acondicionado que funcione DE VERDAD",
-  "\uD83D\uDCDA Que no manden tarea para el finde largo",
-  "\uD83C\uDFC6 Torneo de futbol/voley en los recreos",
-  "\uD83C\uDFA8 Mas actividades artisticas y menos aburrimiento",
-  "\uD83E\uDD73 Fiesta de fin de trimestre OBLIGATORIA",
-  "\uD83E\uDD14 Buzon anonimo de sugerencias que se lea de verdad",
-  "\uD83D\uDCDD Que los profes avisen las pruebas con MAS tiempo",
-  "\uD83C\uDF33 Bancos en el patio para sentarse como humanos",
-  "\uD83D\uDE0E Casual Friday: un dia sin uniforme al mes",
-  "\uD83C\uDFAE Torneo de videojuegos intercolegial",
-  "\uD83E\uDDD1\u200D\uD83C\uDF73 Taller de cocina como actividad extra",
-  "\uD83D\uDCA1 Que las ideas de los estudiantes se escuchen POSTA"
+  "\uD83D\uDCE2 Difusion de propuestas, eventos e info relevante por carteles y redes sociales internas",
+  "\uD83D\uDCF1 Mantener informada a la comunidad con lo que realmente importa",
+  "\uD83D\uDCE6 Caja comun para depositar sobrantes de materiales de trabajos practicos",
+  "\u267B\uFE0F Reutilizar materiales de otros trabajos: menos gasto, mas recursos para todos",
+  "\uD83D\uDCAC Creacion de mensajes positivos hechos por estudiantes, en digital y en papel",
+  "\u2728 Llenar el cole de buena onda con mensajes que nos motiven",
+  "\uD83C\uDFA8 Mostrar creaciones de artistas de 1ro y 2do: dibujos, pinturas, musica y mas",
+  "\uD83C\uDFAD Exponer el talento de los chicos en los pasillos y en las redes"
 ];
 
 let promiseCount = 0;
@@ -1020,6 +1155,184 @@ function launchConfetti() {
     document.body.appendChild(conf);
     setTimeout(() => conf.remove(), (duration + 1) * 1000);
   }
+}
+
+/* ======================================================
+   WHACK-A-MOLE
+   ====================================================== */
+const PROBLEMS = [
+  { emoji: '\uD83D\uDE34', label: 'Aburrimiento' },
+  { emoji: '\uD83D\uDCF5', label: 'Falta de info' },
+  { emoji: '\uD83D\uDDD1\uFE0F', label: 'Materiales tirados' },
+  { emoji: '\uD83D\uDE14', label: 'Mala onda' },
+  { emoji: '\uD83E\uDD37', label: 'Nadie escucha' },
+  { emoji: '\uD83D\uDEAB', label: 'Sin espacio para arte' },
+];
+const GOOD_THINGS = [
+  { emoji: '\u2B50', label: 'AHORA SI' },
+  { emoji: '\uD83D\uDCE2', label: 'Difusion' },
+  { emoji: '\uD83C\uDFA8', label: 'Arte' },
+  { emoji: '\u267B\uFE0F', label: 'Reutilizar' },
+];
+
+const holes = document.querySelectorAll('.mole-hole');
+let whackScore = 0;
+let whackTimer = 20;
+let whackInterval = null;
+let whackSpawnInterval = null;
+let whackActive = false;
+let whackHighScore = parseInt(localStorage.getItem('whack_highscore') || '0');
+
+const SOLUTIONS = [
+  'Difusion por carteles y redes!',
+  'Caja comun de materiales!',
+  'Mensajes positivos!',
+  'Arte en los pasillos!',
+  'AHORA SI lo soluciona!',
+];
+
+function startWhack() {
+  whackScore = 0;
+  whackTimer = 20;
+  whackActive = true;
+  document.getElementById('whackScore').textContent = 0;
+  document.getElementById('whackTimer').textContent = 30;
+  document.getElementById('whackStart').style.display = 'none';
+  document.getElementById('whackEnd').style.display = 'none';
+  document.getElementById('whackMessage').textContent = '';
+
+  holes.forEach(h => {
+    h.className = 'mole-hole';
+    h.textContent = '';
+    h.appendChild(createLabel(''));
+  });
+
+  whackInterval = setInterval(() => {
+    whackTimer--;
+    document.getElementById('whackTimer').textContent = whackTimer;
+    if (whackTimer <= 0) endWhack();
+  }, 1000);
+
+  whackSpawnInterval = setInterval(spawnMole, 900);
+  spawnMole();
+}
+
+function createLabel(text) {
+  const span = document.createElement('span');
+  span.className = 'mole-label';
+  span.textContent = text;
+  return span;
+}
+
+function spawnMole() {
+  if (!whackActive) return;
+
+  // Clear some random holes
+  holes.forEach(h => {
+    if (Math.random() < 0.4) {
+      h.className = 'mole-hole';
+      h.childNodes.forEach(c => { if (c.nodeType === 3) c.remove(); });
+      const firstText = h.firstChild;
+      if (firstText && firstText.nodeType === 3) h.removeChild(firstText);
+      // Clear emoji but keep label span
+      Array.from(h.childNodes).forEach(c => {
+        if (c.nodeType === 3) c.textContent = '';
+      });
+      h.querySelector('.mole-label').textContent = '';
+      // reset text
+      const nodes = Array.from(h.childNodes).filter(n => n.nodeType === 3);
+      nodes.forEach(n => n.remove());
+    }
+  });
+
+  // Pick 1-3 random empty holes to populate
+  const emptyHoles = Array.from(holes).filter(h => !h.classList.contains('active-problem') && !h.classList.contains('active-good'));
+  const count = Math.min(1 + Math.floor(Math.random() * 2), emptyHoles.length);
+
+  for (let i = 0; i < count; i++) {
+    const idx = Math.floor(Math.random() * emptyHoles.length);
+    const hole = emptyHoles.splice(idx, 1)[0];
+
+    // 70% problems, 30% good things
+    const isProblem = Math.random() < 0.7;
+    const pool = isProblem ? PROBLEMS : GOOD_THINGS;
+    const item = pool[Math.floor(Math.random() * pool.length)];
+
+    // Clear existing text nodes
+    Array.from(hole.childNodes).filter(n => n.nodeType === 3).forEach(n => n.remove());
+
+    hole.insertBefore(document.createTextNode(item.emoji), hole.firstChild);
+    hole.querySelector('.mole-label').textContent = item.label;
+    hole.classList.add(isProblem ? 'active-problem' : 'active-good');
+    hole.dataset.type = isProblem ? 'problem' : 'good';
+
+    // Auto-hide after a while
+    setTimeout(() => {
+      if (hole.dataset.type) {
+        hole.className = 'mole-hole';
+        Array.from(hole.childNodes).filter(n => n.nodeType === 3).forEach(n => n.remove());
+        hole.querySelector('.mole-label').textContent = '';
+        delete hole.dataset.type;
+      }
+    }, 1500 + Math.random() * 1000);
+  }
+}
+
+holes.forEach(hole => {
+  hole.addEventListener('click', () => {
+    if (!whackActive) return;
+    if (!hole.dataset.type) return;
+
+    const msg = document.getElementById('whackMessage');
+
+    if (hole.dataset.type === 'problem') {
+      whackScore += 10;
+      hole.className = 'mole-hole hit-success';
+      msg.style.color = '#22c55e';
+      msg.textContent = SOLUTIONS[Math.floor(Math.random() * SOLUTIONS.length)];
+    } else {
+      whackScore = Math.max(0, whackScore - 15);
+      hole.className = 'mole-hole hit-fail';
+      msg.style.color = '#ef4444';
+      msg.textContent = 'Eso era algo bueno!';
+    }
+
+    document.getElementById('whackScore').textContent = whackScore;
+    Array.from(hole.childNodes).filter(n => n.nodeType === 3).forEach(n => n.remove());
+    hole.querySelector('.mole-label').textContent = '';
+    delete hole.dataset.type;
+
+    setTimeout(() => {
+      hole.className = 'mole-hole';
+    }, 400);
+  });
+});
+
+function endWhack() {
+  whackActive = false;
+  clearInterval(whackInterval);
+  clearInterval(whackSpawnInterval);
+
+  holes.forEach(h => {
+    h.className = 'mole-hole';
+    Array.from(h.childNodes).filter(n => n.nodeType === 3).forEach(n => n.remove());
+    h.querySelector('.mole-label').textContent = '';
+    delete h.dataset.type;
+  });
+
+  const endEl = document.getElementById('whackEnd');
+  document.getElementById('whackFinal').textContent = 'Puntos: ' + whackScore;
+
+  if (whackScore > whackHighScore) {
+    whackHighScore = whackScore;
+    localStorage.setItem('whack_highscore', whackHighScore);
+    document.getElementById('whackHigh').textContent = 'NUEVO RECORD! \uD83C\uDFC6';
+  } else {
+    document.getElementById('whackHigh').textContent = 'Record: ' + whackHighScore;
+  }
+
+  endEl.style.display = 'block';
+  document.getElementById('whackMessage').textContent = '';
 }
 </script>
 
